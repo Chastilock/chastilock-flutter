@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  
+
   runApp(const MyApp());
 }
 
@@ -66,7 +66,39 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Text(dotenv.get('API_BASE_URL', fallback: 'Not Working'))
-        );
+        body: (ListView(padding: EdgeInsets.all(10), children: [
+          Center(
+              child: Image.asset(
+            'logo.png',
+            //Test again on Android (failed when testing it previously)
+            width: 200,
+            height: 200,
+          )),
+          Center(
+              child: Text("Welcome to Chastilock!",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))),
+          Text(
+              "Happy to have you on board! If you want, you can either sign in, sign up or continue directly into the app! (You can still connect to an account later).",
+              style: TextStyle(fontSize: 16)),
+
+          Padding(
+              padding: EdgeInsets.all(5),
+              child: ElevatedButton(
+                  onPressed: () {}, child: Text("Register a new account"))),
+
+          Padding(
+              padding: EdgeInsets.all(5),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Take me directly to the app"))),
+          Padding(
+              padding: EdgeInsets.all(5),
+              child: ElevatedButton(onPressed: () {}, child: Text("Sign in"))),
+          Padding(
+              padding: EdgeInsets.all(5),
+              child: ElevatedButton(
+                  onPressed: () {}, child: Text("Recover using the user id"))),
+          //Text(dotenv.get('API_BASE_URL', fallback: 'Not Working')),
+        ])));
   }
 }
