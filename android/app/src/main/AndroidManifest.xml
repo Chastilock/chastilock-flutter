@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.chastilock.chastilock">
    <application
-        android:label="chastilock"
+        android:label="Chastilock"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

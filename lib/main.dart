@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
+  
   runApp(const MyApp());
 }
 
@@ -62,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Text("Hello")
+        body: Text(dotenv.get('API_BASE_URL', fallback: 'Not Working'))
         );
   }
 }
