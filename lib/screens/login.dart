@@ -1,3 +1,4 @@
+import 'package:chastilock/api/login.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +19,11 @@ class LoginScreenState extends State<LoginScreen> {
   // Note: This is a `GlobalKey<FormState>`,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
+  runLogin() async {
+    String result = await allUsers();
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> {
                           return null;
                         })),
                 Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: TextFormField(
                         decoration: const InputDecoration(
                             labelText: "Password",
@@ -68,12 +74,14 @@ class LoginScreenState extends State<LoginScreen> {
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
+                            String result = await runLogin();
+
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
+                              SnackBar(content: Text(result)),
                             );
                           }
                         },

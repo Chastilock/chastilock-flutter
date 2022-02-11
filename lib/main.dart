@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'screens/setup.dart';
 import 'screens/login.dart';
 
 Future main() async {
@@ -16,14 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Chastilock',
-      theme: ThemeData(
-          brightness: Brightness.light, primarySwatch: Colors.lightBlue),
+      theme:
+          /* light theme settings */
+          ThemeData(
+              brightness: Brightness.light, primarySwatch: Colors.lightBlue),
       darkTheme:
           ThemeData(brightness: Brightness.dark, primarySwatch: Colors.lightBlue
               /* dark theme settings */
               ),
       themeMode: ThemeMode.system,
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }

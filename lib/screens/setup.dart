@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SetupScreen extends StatelessWidget {
   const SetupScreen({Key? key}) : super(key: key);
@@ -34,7 +33,8 @@ class SetupScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
-                  onPressed: () {}, child: Text("Register a new account"))),
+                  onPressed: () {},
+                  child: const Text("Register a new account"))),
 
           Padding(
               padding: const EdgeInsets.all(5),
