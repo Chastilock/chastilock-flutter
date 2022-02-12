@@ -1,4 +1,5 @@
 import 'package:chastilock/api/login.dart';
+import 'package:chastilock/api/query.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,11 +21,6 @@ class LoginScreenState extends State<LoginScreen> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
-  runLogin() async {
-    String result = await allUsers();
-    return result;
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
@@ -32,6 +28,9 @@ class LoginScreenState extends State<LoginScreen> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    String? username;
+    String? password;
+
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the LoginScreen object that was created by
@@ -45,6 +44,9 @@ class LoginScreenState extends State<LoginScreen> {
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
+                        onSaved: (String? value) {
+                          username = value;
+                        },
                         decoration: const InputDecoration(
                             labelText: "Username",
                             border: OutlineInputBorder(),
@@ -58,6 +60,9 @@ class LoginScreenState extends State<LoginScreen> {
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
+                        onSaved: (String? value) {
+                          password = value;
+                        },
                         decoration: const InputDecoration(
                             labelText: "Password",
                             border: OutlineInputBorder(),
@@ -76,13 +81,19 @@ class LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            _formKey.currentState?.save();
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-                            String result = await runLogin();
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(result)),
-                            );
+                            try {
+                              String result = await login(username!, password!);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(result)),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            }
                           }
                         },
                         child: const Text("Login")))
