@@ -1,6 +1,6 @@
 import 'package:chastilock/api/login.dart';
-import 'package:chastilock/api/query.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -81,14 +81,13 @@ class LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            final prefs = await SharedPreferences.getInstance();
                             _formKey.currentState?.save();
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
                             try {
-                              String result = await login(username!, password!);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(result)),
-                              );
+                              String token = await login(username!, password!);
+                              prefs.setString('LoginToken', token);
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(e.toString())),
