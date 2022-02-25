@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:chastilock/router.gr.dart';
 
 class SetupScreen extends StatelessWidget {
   const SetupScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -10,6 +13,7 @@ class SetupScreen extends StatelessWidget {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    final _router = AutoRouter.of(context);
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the SetupScreen object that was created by
@@ -44,7 +48,10 @@ class SetupScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
-                  onPressed: () {}, child: const Text("Sign in"))),
+                  onPressed: () {
+                    _router.push(const LoginScreenRoute());
+                  },
+                  child: const Text("Sign in"))),
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(

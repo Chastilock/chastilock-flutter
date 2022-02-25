@@ -16,6 +16,6 @@ class HomeScreen extends StatelessWidget {
           // the App.build method, and use it to set our appbar title.
           title: const Text("Home"),
         ),
-        body: Text("Logged in!!"));
+        body: const Text("Logged in!!"));
   }
 }

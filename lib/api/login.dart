@@ -23,7 +23,7 @@ Future<String> login(String usernameIn, String passwordIn) async {
   final QueryResult result = await _client.mutate(options);
 
   if (result.hasException) {
-    throw Exception(result.exception.toString());
+    throw Exception(result.exception!.graphqlErrors[0]);
   } else {
     return result.data!['login']['Token'] as String;
   }

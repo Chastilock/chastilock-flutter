@@ -1,6 +1,8 @@
 import 'package:chastilock/api/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:chastilock/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,6 +30,8 @@ class LoginScreenState extends State<LoginScreen> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    final _router = AutoRouter.of(context);
     String? username;
     String? password;
 
@@ -40,63 +44,61 @@ class LoginScreenState extends State<LoginScreen> {
         body: (Form(
             key: _formKey,
             child: ListView(padding: const EdgeInsets.all(10), children: [
-              Column(children: [
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                        onSaved: (String? value) {
-                          username = value;
-                        },
-                        decoration: const InputDecoration(
-                            labelText: "Username",
-                            border: OutlineInputBorder(),
-                            hintText: 'L0ckmeup21'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a username';
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                      onSaved: (String? value) {
+                        username = value;
+                      },
+                      decoration: const InputDecoration(
+                          labelText: "Username",
+                          border: OutlineInputBorder(),
+                          hintText: 'L0ckmeup21'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a username';
+                        }
+                        return null;
+                      })),
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                      onSaved: (String? value) {
+                        password = value;
+                      },
+                      decoration: const InputDecoration(
+                          labelText: "Password",
+                          border: OutlineInputBorder(),
+                          hintText: 'mySuperSecretP@assword1'),
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a password';
+                        }
+                        return null;
+                      })),
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          final prefs = await SharedPreferences.getInstance();
+                          _formKey.currentState?.save();
+                          try {
+                            String token = await login(username!, password!);
+                            prefs.setString('LoginToken', token);
+                            _router.popUntilRoot();
+                            _router.replace(const HomeScreenRoute());
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
                           }
-                          return null;
-                        })),
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                        onSaved: (String? value) {
-                          password = value;
-                        },
-                        decoration: const InputDecoration(
-                            labelText: "Password",
-                            border: OutlineInputBorder(),
-                            hintText: 'mySuperSecretP@assword1'),
-                        obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a password';
-                          }
-                          return null;
-                        })),
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final prefs = await SharedPreferences.getInstance();
-                            _formKey.currentState?.save();
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-                            try {
-                              String token = await login(username!, password!);
-                              prefs.setString('LoginToken', token);
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(e.toString())),
-                              );
-                            }
-                          }
-                        },
-                        child: const Text("Login")))
-              ])
+                        }
+                      },
+                      child: const Text("Login")))
             ]))));
   }
 }
