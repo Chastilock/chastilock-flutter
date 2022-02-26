@@ -1,8 +1,8 @@
 import 'package:auto_route/annotations.dart';
 
 import 'screens/home.dart';
-import 'screens/setup.dart';
-import 'screens/login.dart';
+import 'screens/setup/setup.dart';
+import 'screens/setup/login.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route,Screen',
