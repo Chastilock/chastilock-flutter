@@ -1,7 +1,7 @@
 import 'package:chastilock/api/connect.dart';
 import 'package:graphql/client.dart';
 
-Future<String> forgettonPasssword(String emailIn) async {
+Future<bool> forgettonPasssword(String emailIn) async {
   final GraphQLClient _client = await getGraphqlClient();
 
   final MutationOptions options = MutationOptions(
@@ -22,6 +22,6 @@ Future<String> forgettonPasssword(String emailIn) async {
   if (result.hasException) {
     throw Exception(result.exception!.graphqlErrors[0]);
   } else {
-    return result.data as String;
+    return true;
   }
 }

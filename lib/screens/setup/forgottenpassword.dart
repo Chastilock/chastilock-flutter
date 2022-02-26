@@ -67,9 +67,11 @@ class ForgottenPageState extends State<ForgottenPage> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
                         try {
-                          String response = await forgettonPasssword(email!);
+                          await forgettonPasssword(email!);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(response.toString())),
+                            SnackBar(
+                                content: const Text(
+                                    "We have sent an email to your email address with further instructions.")),
                           );
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(

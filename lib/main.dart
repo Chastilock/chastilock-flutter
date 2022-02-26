@@ -43,22 +43,18 @@ class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    /*  return MaterialApp(
-        title: 'Chastilock',
+    return MaterialApp.router(
         theme:
             /* light theme settings */
             ThemeData(
                 brightness: Brightness.light, primarySwatch: Colors.lightBlue),
         darkTheme: ThemeData(
-            brightness: Brightness.dark, primarySwatch: Colors.lightBlue
+            brightness: Brightness.dark,
+            primarySwatch: Colors.lightBlue,
+            backgroundColor: Color(0xFF042a49) //Needs fixing!
             /* dark theme settings */
             ),
         themeMode: ThemeMode.system,
-        home: MaterialApp.router(
-            routeInformationParser: _appRouter.defaultRouteParser(),
-            routerDelegate: _appRouter.delegate())); */
-
-    return MaterialApp.router(
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(initialRoutes: [
           isLoggedIn() ? const HomeRoute() : const SetupRoute()
