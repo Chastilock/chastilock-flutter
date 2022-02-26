@@ -55,9 +55,7 @@ class SetupScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
-                  onPressed: () {
-                    print("Testing!!");
-                  },
+                  onPressed: () {},
                   child: const Text("Recover using the user id"))),
           //Text(dotenv.get('API_BASE_URL', fallback: 'Not Working')),
         ])));

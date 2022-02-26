@@ -98,7 +98,16 @@ class LoginScreenState extends State<LoginScreen> {
                           }
                         }
                       },
-                      child: const Text("Login")))
+                      child: const Text("Login"))),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _router.push(const ForgottenScreenRoute());
+                  },
+                  child: const Text("Forgotten Password"),
+                ),
+              )
             ]))));
   }
 }
