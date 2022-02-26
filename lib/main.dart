@@ -61,7 +61,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp.router(
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(initialRoutes: [
-          isLoggedIn() ? const HomeScreenRoute() : const SetupScreenRoute()
+          isLoggedIn() ? const HomeRoute() : const SetupRoute()
         ]));
   }
 }

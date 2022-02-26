@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:chastilock/router.gr.dart';
 
-class SetupScreen extends StatelessWidget {
-  const SetupScreen({Key? key}) : super(key: key);
+class SetupPage extends StatelessWidget {
+  const SetupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SetupScreen extends StatelessWidget {
     final _router = AutoRouter.of(context);
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the SetupScreen object that was created by
+          // Here we take the value from the SetupPage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: const Text("Setup"),
         ),
@@ -49,7 +49,7 @@ class SetupScreen extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {
-                    _router.push(const LoginScreenRoute());
+                    _router.push(const LoginRoute());
                   },
                   child: const Text("Sign in"))),
           Padding(

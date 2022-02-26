@@ -4,18 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chastilock/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  LoginScreenState createState() {
-    return LoginScreenState();
+  LoginPageState createState() {
+    return LoginPageState();
   }
 }
 
 // Define a corresponding State class.
 // This class holds data related to the form.
-class LoginScreenState extends State<LoginScreen> {
+class LoginPageState extends State<LoginPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -37,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the LoginScreen object that was created by
+          // Here we take the value from the LoginPage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: const Text("Login"),
         ),
@@ -90,7 +90,7 @@ class LoginScreenState extends State<LoginScreen> {
                             String token = await login(username!, password!);
                             prefs.setString('LoginToken', token);
                             _router.popUntilRoot();
-                            _router.replace(const HomeScreenRoute());
+                            _router.replace(const HomeRoute());
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString())),
@@ -103,7 +103,7 @@ class LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
                   onPressed: () async {
-                    _router.push(const ForgottenScreenRoute());
+                    _router.push(const ForgottenRoute());
                   },
                   child: const Text("Forgotten Password"),
                 ),

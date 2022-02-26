@@ -2,18 +2,18 @@ import 'package:chastilock/api/forgotten_password.dart';
 import 'package:chastilock/helpers/email_helpers.dart';
 import 'package:flutter/material.dart';
 
-class ForgottenScreen extends StatefulWidget {
-  const ForgottenScreen({Key? key}) : super(key: key);
+class ForgottenPage extends StatefulWidget {
+  const ForgottenPage({Key? key}) : super(key: key);
 
   @override
-  ForgottenScreenState createState() {
-    return ForgottenScreenState();
+  ForgottenPageState createState() {
+    return ForgottenPageState();
   }
 }
 
 // Define a corresponding State class.
 // This class holds data related to the form.
-class ForgottenScreenState extends State<ForgottenScreen> {
+class ForgottenPageState extends State<ForgottenPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //

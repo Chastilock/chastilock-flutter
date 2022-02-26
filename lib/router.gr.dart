@@ -24,63 +24,61 @@ class AppRouter extends _i5.RootStackRouter {
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {
-    SetupScreenRoute.name: (routeData) {
+    SetupRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.SetupScreen());
+          routeData: routeData, child: const _i1.SetupPage());
     },
-    LoginScreenRoute.name: (routeData) {
+    LoginRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.LoginScreen());
+          routeData: routeData, child: const _i2.LoginPage());
     },
-    HomeScreenRoute.name: (routeData) {
+    HomeRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.HomeScreen());
+          routeData: routeData, child: const _i3.HomePage());
     },
-    ForgottenScreenRoute.name: (routeData) {
+    ForgottenRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.ForgottenScreen());
+          routeData: routeData, child: const _i4.ForgottenPage());
     }
   };
 
   @override
   List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(SetupScreenRoute.name, path: '/'),
-        _i5.RouteConfig(LoginScreenRoute.name, path: '/login-screen'),
-        _i5.RouteConfig(HomeScreenRoute.name, path: '/home-screen'),
-        _i5.RouteConfig(ForgottenScreenRoute.name, path: '/forgotten-screen')
+        _i5.RouteConfig(SetupRoute.name, path: '/'),
+        _i5.RouteConfig(LoginRoute.name, path: '/login'),
+        _i5.RouteConfig(HomeRoute.name, path: '/home'),
+        _i5.RouteConfig(ForgottenRoute.name, path: '/forgot')
       ];
 }
 
 /// generated route for
-/// [_i1.SetupScreen]
-class SetupScreenRoute extends _i5.PageRouteInfo<void> {
-  const SetupScreenRoute() : super(SetupScreenRoute.name, path: '/');
+/// [_i1.SetupPage]
+class SetupRoute extends _i5.PageRouteInfo<void> {
+  const SetupRoute() : super(SetupRoute.name, path: '/');
 
-  static const String name = 'SetupScreenRoute';
+  static const String name = 'SetupRoute';
 }
 
 /// generated route for
-/// [_i2.LoginScreen]
-class LoginScreenRoute extends _i5.PageRouteInfo<void> {
-  const LoginScreenRoute()
-      : super(LoginScreenRoute.name, path: '/login-screen');
+/// [_i2.LoginPage]
+class LoginRoute extends _i5.PageRouteInfo<void> {
+  const LoginRoute() : super(LoginRoute.name, path: '/login');
 
-  static const String name = 'LoginScreenRoute';
+  static const String name = 'LoginRoute';
 }
 
 /// generated route for
-/// [_i3.HomeScreen]
-class HomeScreenRoute extends _i5.PageRouteInfo<void> {
-  const HomeScreenRoute() : super(HomeScreenRoute.name, path: '/home-screen');
+/// [_i3.HomePage]
+class HomeRoute extends _i5.PageRouteInfo<void> {
+  const HomeRoute() : super(HomeRoute.name, path: '/home');
 
-  static const String name = 'HomeScreenRoute';
+  static const String name = 'HomeRoute';
 }
 
 /// generated route for
-/// [_i4.ForgottenScreen]
-class ForgottenScreenRoute extends _i5.PageRouteInfo<void> {
-  const ForgottenScreenRoute()
-      : super(ForgottenScreenRoute.name, path: '/forgotten-screen');
+/// [_i4.ForgottenPage]
+class ForgottenRoute extends _i5.PageRouteInfo<void> {
+  const ForgottenRoute() : super(ForgottenRoute.name, path: '/forgot');
 
-  static const String name = 'ForgottenScreenRoute';
+  static const String name = 'ForgottenRoute';
 }
