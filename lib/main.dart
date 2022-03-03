@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'themes.dart';
 
 SharedPreferences? _prefs;
 
@@ -44,16 +45,8 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        theme:
-            /* light theme settings */
-            ThemeData(
-                brightness: Brightness.light, primarySwatch: Colors.lightBlue),
-        darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.lightBlue,
-            backgroundColor: Color(0xFF042a49) //Needs fixing!
-            /* dark theme settings */
-            ),
+        theme: Themes.lightTheme,
+        darkTheme: Themes.darkTheme,
         themeMode: ThemeMode.system,
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(initialRoutes: [
