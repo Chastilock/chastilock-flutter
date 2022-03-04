@@ -1,4 +1,4 @@
-import 'package:chastilock/api/login.dart';
+import 'package:chastilock/api/mutations/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chastilock/router.gr.dart';
@@ -87,14 +87,13 @@ class LoginPageState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           _formKey.currentState?.save();
                           try {
-                            String token = await login(username!, password!);
+                            String token =
+                                await login(username!, password!, context);
                             prefs.setString('LoginToken', token);
                             _router.popUntilRoot();
                             _router.replace(const HomeRoute());
                           } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(e.toString())),
-                            );
+                            print("Error logging in");
                           }
                         }
                       },

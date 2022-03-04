@@ -1,4 +1,4 @@
-import 'package:chastilock/api/forgotten_password.dart';
+import 'package:chastilock/api/mutations/forgotten_password.dart';
 import 'package:chastilock/helpers/email_helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -67,16 +67,14 @@ class ForgottenPageState extends State<ForgottenPage> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
                         try {
-                          await forgettonPasssword(email!);
+                          await forgettonPasssword(email!, context);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: const Text(
+                            const SnackBar(
+                                content: Text(
                                     "We have sent an email to your email address with further instructions.")),
                           );
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.toString())),
-                          );
+                          print("Failed to send forgotten password email");
                         }
                       }
                     },

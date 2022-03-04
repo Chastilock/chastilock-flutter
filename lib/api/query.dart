@@ -1,4 +1,4 @@
-import 'package:chastilock/api/connect.dart';
+/* import 'package:chastilock/api/connect.dart';
 import 'package:graphql/client.dart';
 
 Future<String> allUsers() async {
@@ -20,3 +20,4 @@ Future<String> allUsers() async {
     return (result.data.toString());
   }
 }
+ */
