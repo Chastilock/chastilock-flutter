@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     // than having to individually change instances of widgets.
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),
+          title: const Text('Home'),
           actions: [
             IconButton(
                 onPressed: () {
@@ -25,6 +25,6 @@ class HomePage extends StatelessWidget {
                 icon: const Icon(Icons.settings, color: Colors.white))
           ],
         ),
-        body: const Text("Logged in!!"));
+        body: const Text('Logged in!!'));
   }
 }

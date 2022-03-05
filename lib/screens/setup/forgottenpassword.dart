@@ -35,7 +35,7 @@ class ForgottenPageState extends State<ForgottenPage> {
         appBar: AppBar(
           // Here we take the value from the LoginScreen object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: const Text("Forgotten Password"),
+          title: const Text('Forgotten Password'),
         ),
         body: (Form(
             key: _formKey,
@@ -47,7 +47,7 @@ class ForgottenPageState extends State<ForgottenPage> {
                         email = value;
                       },
                       decoration: const InputDecoration(
-                          labelText: "Email",
+                          labelText: 'Email',
                           border: OutlineInputBorder(),
                           hintText: 'me@example.com'),
                       validator: (value) {
@@ -71,14 +71,15 @@ class ForgottenPageState extends State<ForgottenPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text(
-                                    "We have sent an email to your email address with further instructions.")),
+                                    'We have sent an email to your email address with further instructions.')),
                           );
                         } catch (e) {
-                          print("Failed to send forgotten password email");
+                          // ignore: avoid_print
+                          print('Failed to send forgotten password email');
                         }
                       }
                     },
-                    child: const Text("Submit")),
+                    child: const Text('Submit')),
               )
             ]))));
   }

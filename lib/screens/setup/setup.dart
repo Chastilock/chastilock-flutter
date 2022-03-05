@@ -18,7 +18,7 @@ class SetupPage extends StatelessWidget {
         appBar: AppBar(
           // Here we take the value from the SetupPage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: const Text("Setup"),
+          title: const Text('Setup'),
         ),
         body: (ListView(padding: const EdgeInsets.all(10), children: [
           Center(
@@ -28,35 +28,35 @@ class SetupPage extends StatelessWidget {
             height: 200,
           )),
           const Center(
-              child: Text("Welcome to Chastilock!",
+              child: Text('Welcome to Chastilock!',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))),
           const Text(
-              "Happy to have you on board! If you want, you can either sign in, sign up or continue directly into the app! (You can still connect to an account later).",
+              'Happy to have you on board! If you want, you can either sign in, sign up or continue directly into the app! (You can still connect to an account later).',
               style: TextStyle(fontSize: 16)),
 
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text("Register a new account"))),
+                  child: const Text('Register a new account'))),
 
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text("Take me directly to the app"))),
+                  child: const Text('Take me directly to the app'))),
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {
                     _router.push(const LoginRoute());
                   },
-                  child: const Text("Sign in"))),
+                  child: const Text('Sign in'))),
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text("Recover using the user id"))),
+                  child: const Text('Recover using the user id'))),
           //Text(dotenv.get('API_BASE_URL', fallback: 'Not Working')),
         ])));
   }

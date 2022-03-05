@@ -7,7 +7,7 @@ import 'themes.dart';
 SharedPreferences? _prefs;
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: '.env');
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((instance) {
     _prefs = instance;
@@ -18,7 +18,7 @@ Future main() async {
 bool isLoggedIn() {
   bool loggedIn = false;
   if (_prefs != null) {
-    String? loginToken = _prefs?.getString("LoginToken");
+    String? loginToken = _prefs?.getString('LoginToken');
 
     if (loginToken != null) {
       loggedIn = true;

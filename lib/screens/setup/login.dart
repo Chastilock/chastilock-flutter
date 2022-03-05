@@ -23,6 +23,12 @@ class LoginPageState extends State<LoginPage> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  final passwordController = TextEditingController();
+
+  void clearPassword() {
+    passwordController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
@@ -39,7 +45,7 @@ class LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           // Here we take the value from the LoginPage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: const Text("Login"),
+          title: const Text('Login'),
         ),
         body: (Form(
             key: _formKey,
@@ -51,7 +57,7 @@ class LoginPageState extends State<LoginPage> {
                         username = value;
                       },
                       decoration: const InputDecoration(
-                          labelText: "Username",
+                          labelText: 'Username',
                           border: OutlineInputBorder(),
                           hintText: 'L0ckmeup21'),
                       validator: (value) {
@@ -63,11 +69,12 @@ class LoginPageState extends State<LoginPage> {
               Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
+                      controller: passwordController,
                       onSaved: (String? value) {
                         password = value;
                       },
                       decoration: const InputDecoration(
-                          labelText: "Password",
+                          labelText: 'Password',
                           border: OutlineInputBorder(),
                           hintText: 'mySuperSecretP@assword1'),
                       obscureText: true,
@@ -86,6 +93,7 @@ class LoginPageState extends State<LoginPage> {
                         if (_formKey.currentState!.validate()) {
                           final prefs = await SharedPreferences.getInstance();
                           _formKey.currentState?.save();
+                          clearPassword();
                           try {
                             String token =
                                 await login(username!, password!, context);
@@ -93,18 +101,20 @@ class LoginPageState extends State<LoginPage> {
                             _router.popUntilRoot();
                             _router.replace(const HomeRoute());
                           } catch (e) {
-                            print("Error logging in");
+                            // ignore: avoid_print
+                            print('Error logging in');
+                            //TODO: Implement proper logging
                           }
                         }
                       },
-                      child: const Text("Login"))),
+                      child: const Text('Login'))),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
                   onPressed: () async {
                     _router.push(const ForgottenRoute());
                   },
-                  child: const Text("Forgotten Password"),
+                  child: const Text('Forgotten Password'),
                 ),
               )
             ]))));

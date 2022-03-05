@@ -12,13 +12,12 @@ Future<QueryResult> runMutation(
   final QueryResult result = await _client.mutate(options);
 
   if (result.hasException) {
-    //print(result.exception?.graphqlErrors[0] as String);
     throw showDialog(
         context: mContext,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Error!"),
+            title: const Text('Error!'),
             content: SingleChildScrollView(
               child: ListBody(children: <Widget>[
                 for (int i = 0; i < result.exception!.graphqlErrors.length; i++)

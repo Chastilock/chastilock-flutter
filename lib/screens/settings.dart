@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Settings"),
+          title: const Text('Settings'),
         ),
         body: ListView(padding: const EdgeInsets.all(10), children: [
           Padding(
@@ -28,7 +28,7 @@ class SettingsPage extends StatelessWidget {
                   _router.popUntilRoot();
                   _router.replace(const SetupRoute());
                 },
-                child: const Text("Log out"),
+                child: const Text('Log out'),
               ))
         ]));
   }
