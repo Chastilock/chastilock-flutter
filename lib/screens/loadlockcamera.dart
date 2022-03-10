@@ -14,12 +14,19 @@ class LoadLockCameraPage extends StatelessWidget {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     final _router = AutoRouter.of(context);
+    final MobileScannerController mController =
+        MobileScannerController(facing: CameraFacing.back);
 
-    return Scaffold(body: MobileScanner(onDetect: (barcode, args) {
-      final String? code = barcode.rawValue;
-      debugPrint('Barcode found! $code');
+    return Scaffold(
+        body: MobileScanner(
+            controller: mController,
+            onDetect: (barcode, args) {
+              final String? code = barcode.rawValue;
+              mController.stop();
+              _router.pop();
+              _router.push(LoadLockFromIDRoute(lockId: code!));
 
-      _router.pop();
-    }));
+              //Works but going back from here results in an error for some reason...
+            }));
   }
 }
