@@ -2,9 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class LoadLockFromIDPage extends StatelessWidget {
-  const LoadLockFromIDPage({Key? key, required this.lockId}) : super(key: key);
-
-  final String lockId;
+  const LoadLockFromIDPage(
+      {Key? key, @QueryParam('lockId') required this.lockId})
+      : super(
+          key: key,
+        );
+  final String? lockId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class LoadLockFromIDPage extends StatelessWidget {
           title: const Text('Load Lock'),
         ),
         body: ListView(padding: const EdgeInsets.all(10), children: [
-          Text(lockId)
+          Text(lockId!)
           //Need to get the ID passed either from a deeplink, image from gallery or QR Code scanner
           //Needs adding to router
         ]));

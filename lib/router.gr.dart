@@ -57,7 +57,10 @@ class AppRouter extends _i9.RootStackRouter {
           routeData: routeData, child: const _i7.LoadLockCameraPage());
     },
     LoadLockFromIDRoute.name: (routeData) {
-      final args = routeData.argsAs<LoadLockFromIDRouteArgs>();
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<LoadLockFromIDRouteArgs>(
+          orElse: () =>
+              LoadLockFromIDRouteArgs(lockId: queryParams.optString('lockId')));
       return _i9.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i8.LoadLockFromIDPage(key: args.key, lockId: args.lockId));
@@ -71,8 +74,8 @@ class AppRouter extends _i9.RootStackRouter {
         _i9.RouteConfig(HomeRoute.name, path: '/home'),
         _i9.RouteConfig(ForgottenRoute.name, path: '/forgot'),
         _i9.RouteConfig(SettingsRoute.name, path: '/settings'),
-        _i9.RouteConfig(LoadLockRoute.name, path: '/load'),
-        _i9.RouteConfig(LoadLockCameraRoute.name, path: '/cameraloadlock'),
+        _i9.RouteConfig(LoadLockRoute.name, path: '/loadlock'),
+        _i9.RouteConfig(LoadLockCameraRoute.name, path: '/loadlock/camera'),
         _i9.RouteConfig(LoadLockFromIDRoute.name, path: '/loadlock/:lockId')
       ];
 }
@@ -120,7 +123,7 @@ class SettingsRoute extends _i9.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.LoadLockPage]
 class LoadLockRoute extends _i9.PageRouteInfo<void> {
-  const LoadLockRoute() : super(LoadLockRoute.name, path: '/load');
+  const LoadLockRoute() : super(LoadLockRoute.name, path: '/loadlock');
 
   static const String name = 'LoadLockRoute';
 }
@@ -129,7 +132,7 @@ class LoadLockRoute extends _i9.PageRouteInfo<void> {
 /// [_i7.LoadLockCameraPage]
 class LoadLockCameraRoute extends _i9.PageRouteInfo<void> {
   const LoadLockCameraRoute()
-      : super(LoadLockCameraRoute.name, path: '/cameraloadlock');
+      : super(LoadLockCameraRoute.name, path: '/loadlock/camera');
 
   static const String name = 'LoadLockCameraRoute';
 }
@@ -137,10 +140,11 @@ class LoadLockCameraRoute extends _i9.PageRouteInfo<void> {
 /// generated route for
 /// [_i8.LoadLockFromIDPage]
 class LoadLockFromIDRoute extends _i9.PageRouteInfo<LoadLockFromIDRouteArgs> {
-  LoadLockFromIDRoute({_i10.Key? key, required String lockId})
+  LoadLockFromIDRoute({_i10.Key? key, required String? lockId})
       : super(LoadLockFromIDRoute.name,
             path: '/loadlock/:lockId',
-            args: LoadLockFromIDRouteArgs(key: key, lockId: lockId));
+            args: LoadLockFromIDRouteArgs(key: key, lockId: lockId),
+            rawQueryParams: {'lockId': lockId});
 
   static const String name = 'LoadLockFromIDRoute';
 }
@@ -150,7 +154,7 @@ class LoadLockFromIDRouteArgs {
 
   final _i10.Key? key;
 
-  final String lockId;
+  final String? lockId;
 
   @override
   String toString() {

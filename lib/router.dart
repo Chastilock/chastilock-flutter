@@ -19,8 +19,8 @@ import 'screens/setup/forgottenpassword.dart';
     AutoRoute(page: HomePage, path: '/home'),
     AutoRoute(page: ForgottenPage, path: '/forgot'),
     AutoRoute(page: SettingsPage, path: '/settings'),
-    AutoRoute(page: LoadLockPage, path: '/load'),
-    AutoRoute(page: LoadLockCameraPage, path: '/cameraloadlock'),
+    AutoRoute(page: LoadLockPage, path: '/loadlock'),
+    AutoRoute(page: LoadLockCameraPage, path: '/loadlock/camera'),
     AutoRoute(page: LoadLockFromIDPage, path: '/loadlock/:lockId')
   ],
 )
