@@ -57,6 +57,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'org.chastilock.chastilock'
 }
 
 flutter {
