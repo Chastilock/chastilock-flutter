@@ -12,7 +12,7 @@ class LoadLockPage extends StatelessWidget {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    final _router = AutoRouter.of(context);
+    final router = AutoRouter.of(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -23,7 +23,7 @@ class LoadLockPage extends StatelessWidget {
             child: ElevatedButton.icon(
                 icon: const Icon(Icons.camera_alt),
                 label: const Text('Load QR Code Using Camera'),
-                onPressed: () => {_router.push(const LoadLockCameraRoute())}),
+                onPressed: () => {router.push(const LoadLockCameraRoute())}),
           )
         ]));
   }

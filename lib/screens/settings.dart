@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    final _router = AutoRouter.of(context);
+    final router = AutoRouter.of(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -25,8 +25,8 @@ class SettingsPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   await AccountHelpers.logout();
-                  _router.popUntilRoot();
-                  _router.replace(const SetupRoute());
+                  router.popUntilRoot();
+                  router.replace(const SetupRoute());
                 },
                 child: const Text('Log out'),
               ))

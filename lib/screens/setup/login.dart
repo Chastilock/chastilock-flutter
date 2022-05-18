@@ -37,7 +37,7 @@ class LoginPageState extends State<LoginPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    final _router = AutoRouter.of(context);
+    final router = AutoRouter.of(context);
     String? username;
     String? password;
 
@@ -98,8 +98,8 @@ class LoginPageState extends State<LoginPage> {
                             String token =
                                 await login(username!, password!, context);
                             prefs.setString('LoginToken', token);
-                            _router.popUntilRoot();
-                            _router.replace(const HomeRoute());
+                            router.popUntilRoot();
+                            router.replace(const HomeRoute());
                           } catch (e) {
                             // ignore: avoid_print
                             print('Error logging in');
@@ -112,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
                   onPressed: () async {
-                    _router.push(const ForgottenRoute());
+                    router.push(const ForgottenRoute());
                   },
                   child: const Text('Forgotten Password'),
                 ),

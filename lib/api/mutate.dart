@@ -4,12 +4,12 @@ import 'package:graphql/client.dart';
 
 Future<QueryResult> runMutation(
     String gqlString, mutVariables, BuildContext mContext) async {
-  final GraphQLClient _client = await getGraphqlClient(mContext);
+  final GraphQLClient client = await getGraphqlClient(mContext);
 
   final MutationOptions options =
       MutationOptions(document: gql(gqlString), variables: mutVariables);
 
-  final QueryResult result = await _client.mutate(options);
+  final QueryResult result = await client.mutate(options);
 
   if (result.hasException) {
     throw showDialog(

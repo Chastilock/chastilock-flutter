@@ -13,7 +13,7 @@ class SetupPage extends StatelessWidget {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    final _router = AutoRouter.of(context);
+    final router = AutoRouter.of(context);
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the SetupPage object that was created by
@@ -49,7 +49,7 @@ class SetupPage extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {
-                    _router.push(const LoginRoute());
+                    router.push(const LoginRoute());
                   },
                   child: const Text('Sign in'))),
           Padding(

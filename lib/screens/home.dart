@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _router = AutoRouter.of(context);
+    final router = AutoRouter.of(context);
 
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
     // than having to individually change instances of widgets.
     return Scaffold(
         floatingActionButton: SpeedDial(
-          child: const Icon(Icons.add),
           closedBackgroundColor: Colors.blue,
           openBackgroundColor: Colors.black,
           closedForegroundColor: Colors.white,
@@ -30,18 +29,19 @@ class HomePage extends StatelessWidget {
               backgroundColor: Colors.lightGreen,
               label: 'Load Lock',
               onPressed: () {
-                _router.push(const LoadLockRoute());
+                router.push(const LoadLockRoute());
               },
               closeSpeedDialOnPressed: true,
             ),
           ],
+          child: const Icon(Icons.add),
         ),
         appBar: AppBar(
           title: const Text('Home'),
           actions: [
             IconButton(
                 onPressed: () {
-                  _router.push(const SettingsRoute());
+                  router.push(const SettingsRoute());
                 },
                 icon: const Icon(Icons.settings, color: Colors.white))
           ],
