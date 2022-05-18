@@ -1,11 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:graphql/client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future getGraphqlClient(BuildContext context) async {
+//Just changed and needs testing :). Need to migrate the backend to use HTTP headers for API keys for simplicity
+Future getGraphqlClient() async {
   await dotenv.load();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
   String apiURL =
       dotenv.get('API_BASE_URL', fallback: 'https://127.0.0.1:4000');
-  final Link link = HttpLink(apiURL);
+  String? loginToken = prefs.getString('LoginToken');
+
+  final HttpLink httpLink = HttpLink(apiURL);
+  final AuthLink authLink =
+      AuthLink(getToken: () async => 'Bearer: $loginToken');
+
+  final Link link = authLink.concat(httpLink);
+
   return GraphQLClient(link: link, cache: GraphQLCache());
 }
