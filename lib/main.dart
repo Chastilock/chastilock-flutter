@@ -1,7 +1,9 @@
+import 'package:chastilock/state/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'router.gr.dart';
@@ -51,13 +53,17 @@ class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        theme: Themes.lightTheme,
-        darkTheme: Themes.darkTheme,
-        themeMode: ThemeMode.system,
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        routerDelegate: _appRouter.delegate(initialRoutes: [
-          isLoggedIn() ? const HomeRoute() : const SetupRoute()
-        ]));
+    return FutureProvider(
+        create: (_) => SharedPreferences.getInstance(),
+        initialData: '',
+        lazy: false,
+        child: MaterialApp.router(
+            theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
+            themeMode: ThemeMode.system,
+            routeInformationParser: _appRouter.defaultRouteParser(),
+            routerDelegate: _appRouter.delegate(initialRoutes: [
+              isLoggedIn() ? const HomeRoute() : const SetupRoute()
+            ])));
   }
 }

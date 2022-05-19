@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chastilock/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:provider/provider.dart';
+import '../../state/authentication_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -91,20 +93,24 @@ class LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          final prefs = await SharedPreferences.getInstance();
                           _formKey.currentState?.save();
                           clearPassword();
-                          try {
-                            String token =
-                                await login(username!, password!, context);
-                            prefs.setString('LoginToken', token);
-                            router.popUntilRoot();
-                            router.replace(const HomeRoute());
-                          } catch (e) {
-                            // ignore: avoid_print
-                            print('Error logging in');
-                            //TODO: Implement proper logging
-                          }
+                          // try {
+                          String token = 'My Token';
+                          Provider(context,
+                          create: (context) => (),
+                                  listen: false,
+                                  builder: (context) {
+                                    .setToken(token);
+
+                                  });}
+                          router.popUntilRoot();
+                          router.replace(const HomeRoute());
+                          // } catch (e) {
+                          //   // ignore: avoid_print
+                          //   print('Error logging in');
+                          //   //TODO: Implement proper logging
+                          // }
                         }
                       },
                       child: const Text('Login'))),

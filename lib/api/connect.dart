@@ -1,21 +1,39 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../state/authentication_state.dart';
 
-//Just changed and needs testing :). Need to migrate the backend to use HTTP headers for API keys for simplicity
-Future getGraphqlClient() async {
+//Just changed and needs testing :). Need to migrate the backend to use HTTP headers for API keys for simplicit
+
+Future getGraphqlClient(BuildContext context) async {
+  Link link;
+
   await dotenv.load();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   String apiURL =
       dotenv.get('API_BASE_URL', fallback: 'https://127.0.0.1:4000');
-  String? loginToken = prefs.getString('LoginToken');
 
   final HttpLink httpLink = HttpLink(apiURL);
-  final AuthLink authLink =
-      AuthLink(getToken: () async => 'Bearer: $loginToken');
 
-  final Link link = authLink.concat(httpLink);
+  String localToken = Provider.of<AuthenticationState>(context).token;
 
-  return GraphQLClient(link: link, cache: GraphQLCache());
+  if (localToken != '' && localToken.isNotEmpty) {
+    final AuthLink authLink = AuthLink(
+      getToken: () => 'Bearer $localToken',
+    );
+
+    link = authLink.concat(httpLink);
+  } else {
+    link = httpLink;
+  }
+
+  final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+    GraphQLClient(
+      cache: GraphQLCache(),
+      link: link,
+    ),
+  );
+
+  return client;
 }
