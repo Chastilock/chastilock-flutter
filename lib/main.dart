@@ -1,15 +1,13 @@
-import 'package:chastilock/state/authentication_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'router.gr.dart';
 import 'themes.dart';
 
-SharedPreferences? _prefs;
+late SharedPreferences _prefs;
 
 Future main() async {
   await dotenv.load(fileName: '.env');
@@ -20,20 +18,9 @@ Future main() async {
 
   SharedPreferences.getInstance().then((instance) {
     _prefs = instance;
+    _prefs.setString('LoginToken', 'asdasdasd');
     runApp(const MyApp());
   });
-}
-
-bool isLoggedIn() {
-  bool loggedIn = false;
-  if (_prefs != null) {
-    String? loginToken = _prefs?.getString('LoginToken');
-
-    if (loginToken != null) {
-      loggedIn = true;
-    }
-  }
-  return loggedIn;
 }
 
 class MyApp extends StatefulWidget {
@@ -49,21 +36,48 @@ class MyAppState extends State<MyApp> {
   //App State!!
 
   final _appRouter = AppRouter();
+  late String _loginToken;
+
+  @override
+  void initState() {
+    if (_prefs.getString('LoginToken') != null) {
+      setState(() {
+        _loginToken = _prefs.getString('LoginToken')!;
+      });
+    }
+    super.initState();
+  }
+
+  void setLoginToken(String token) {
+    setState(() {
+      _loginToken = token;
+    });
+    _prefs.setString('LoginToken', token);
+  }
+
+  String getLoginToken() {
+    return _loginToken;
+  }
+
+  bool isLoggedIn() {
+    if (_prefs.getString('LoginToken') != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureProvider(
-        create: (_) => SharedPreferences.getInstance(),
-        initialData: '',
-        lazy: false,
-        child: MaterialApp.router(
-            theme: Themes.lightTheme,
-            darkTheme: Themes.darkTheme,
-            themeMode: ThemeMode.system,
-            routeInformationParser: _appRouter.defaultRouteParser(),
-            routerDelegate: _appRouter.delegate(initialRoutes: [
-              isLoggedIn() ? const HomeRoute() : const SetupRoute()
-            ])));
+    print(isLoggedIn());
+    return MaterialApp.router(
+        theme: Themes.lightTheme,
+        darkTheme: Themes.darkTheme,
+        themeMode: ThemeMode.system,
+        routeInformationParser: _appRouter.defaultRouteParser(),
+        routerDelegate: _appRouter.delegate(initialRoutes: [
+          isLoggedIn() ? const HomeRoute() : const SetupRoute()
+        ]));
   }
 }

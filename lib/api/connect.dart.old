@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import '../state/authentication_state.dart';
 
 //Just changed and needs testing :). Need to migrate the backend to use HTTP headers for API keys for simplicit
 
@@ -16,7 +15,7 @@ Future getGraphqlClient(BuildContext context) async {
 
   final HttpLink httpLink = HttpLink(apiURL);
 
-  String localToken = Provider.of<AuthenticationState>(context).token;
+  String localToken = Provider.of(context).token;
 
   if (localToken != '' && localToken.isNotEmpty) {
     final AuthLink authLink = AuthLink(
