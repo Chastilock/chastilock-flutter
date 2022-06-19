@@ -17,7 +17,9 @@ jobs:
         channel: 'stable'
     - run: flutter pub get
     - run: echo "${{ secrets.ENV_FILE }}" > .env
-    - run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 -d > lib/firebase_options.dart
+    - run: echo $FIREBASE_OPTIONS | base64 -d > lib/firebase_options.dart
+      env:
+        SECRETS_FILE_CONTENT: ${{ secrets.FIREBASE_OPTIONS }}
     #- run: flutter test
     #- run: flutter build apk
     - run: flutter build appbundle
