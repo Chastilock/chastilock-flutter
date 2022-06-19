@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: echo "${{ secrets.ENV_FILE }}" > .env
+    - run: echo $FIREBASE_OPTIONS | base64 -d > lib/firebase_options.dart
+      env:
+        SECRETS_FILE_CONTENT: ${{ secrets.FIREBASE_OPTIONS }}
     - uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
@@ -16,10 +20,6 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
-    - run: echo "${{ secrets.ENV_FILE }}" > .env
-    - run: echo $FIREBASE_OPTIONS | base64 -d > lib/firebase_options.dart
-      env:
-        SECRETS_FILE_CONTENT: ${{ secrets.FIREBASE_OPTIONS }}
     #- run: flutter test
     #- run: flutter build apk
     - run: flutter build appbundle
