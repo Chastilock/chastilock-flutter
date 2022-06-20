@@ -11,7 +11,13 @@ jobs:
     - run: echo "${{ secrets.ENV_FILE }}" > .env
     - run: echo $FIREBASE_OPTIONS | base64 -d > lib/firebase_options.dart
       env:
-        SECRETS_FILE_CONTENT: ${{ secrets.FIREBASE_OPTIONS }}
+        FIREBASE_OPTIONS: ${{ secrets.FIREBASE_OPTIONS }}
+    - run: echo $FIREBASE_APP_ID_FILE | base64 -d > ios/firebase_app_id_file.json
+      env:
+        FIREBASE_APP_ID_FILE: ${{ secrets.FIREBASE_APP_ID_FILE }}
+    - run: echo $GOOGLE_SERVICES | base64 -d > android/app/google-services.json
+      env:
+        GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
     - uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
