@@ -1,0 +1,33 @@
+name: 'Build-iOS-App'
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  build-ios-app:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: echo "${{ secrets.ENV_FILE }}" > .env
+
+    - name: Create firebase_options.dart
+      id: firebase_options
+      uses: timheuer/base64-to-file@v1.1
+      with:
+        fileName: 'firebase_options.dart'
+        fileDir: './lib/'
+        encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+    
+    - name: Create firebase_app_id_file.json
+      id: firebase_app_id_file
+      uses: timheuer/base64-to-file@v1.1
+      with:
+        fileName: 'firebase_app_id_file.json'
+        fileDir: './ios/'
+        encodedString: ${{ secrets.FIREBASE_APP_ID_FILE }}
+
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+    - run: flutter pub get
+    - run: flutter build ios
