@@ -18,7 +18,6 @@ Future main() async {
 
   SharedPreferences.getInstance().then((instance) {
     _prefs = instance;
-    _prefs.setString('LoginToken', 'asdasdasd');
     runApp(const MyApp());
   });
 }
@@ -36,28 +35,6 @@ class MyAppState extends State<MyApp> {
   //App State!!
 
   final _appRouter = AppRouter();
-  late String _loginToken;
-
-  @override
-  void initState() {
-    if (_prefs.getString('LoginToken') != null) {
-      setState(() {
-        _loginToken = _prefs.getString('LoginToken')!;
-      });
-    }
-    super.initState();
-  }
-
-  void setLoginToken(String token) {
-    setState(() {
-      _loginToken = token;
-    });
-    _prefs.setString('LoginToken', token);
-  }
-
-  String getLoginToken() {
-    return _loginToken;
-  }
 
   bool isLoggedIn() {
     if (_prefs.getString('LoginToken') != null) {

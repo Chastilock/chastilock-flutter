@@ -1,6 +1,6 @@
 import 'package:chastilock/api/mutations/login.dart';
+import 'package:chastilock/state/session_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chastilock/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 
@@ -95,9 +95,10 @@ class LoginPageState extends State<LoginPage> {
                           clearPassword();
                           // try {
 
+                          SessionManager()
+                              .setSessionID('thisisaverysecuretoken');
                           router.popUntilRoot();
                           router.replace(const HomeRoute());
-                          String token = 'My Token';
                         }
                       },
                       child: Text('Login'))),
