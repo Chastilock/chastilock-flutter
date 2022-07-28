@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.chastilock.chastilock">
    <application
         android:label="Chastilock"
         android:name="${applicationName}"
@@ -29,7 +30,6 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="chastilock.org" />
                 <data android:scheme="https" android:host="chastilock.org"/>
             </intent-filter>
         </activity>
