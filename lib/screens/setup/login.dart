@@ -100,7 +100,7 @@ class LoginPageState extends State<LoginPage> {
                           router.replace(const HomeRoute());
                         }
                       },
-                      child: Text('Login'))),
+                      child: const Text('Login'))),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
