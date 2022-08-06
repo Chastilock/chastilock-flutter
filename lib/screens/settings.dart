@@ -29,6 +29,15 @@ class SettingsPage extends StatelessWidget {
                   router.replace(const SetupRoute());
                 },
                 child: const Text('Log out'),
+              )),Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () async {
+                  SessionManager().destroyAllSessions();
+                  router.popUntilRoot();
+                  router.replace(const SetupRoute());
+                },
+                child: const Text('Log out from all devices'),
               ))
         ]));
   }

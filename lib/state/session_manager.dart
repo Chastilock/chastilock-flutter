@@ -24,7 +24,13 @@ class SessionManager {
 
   void destroySession() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('LoginToken', '');
+    prefs.remove('LoginToken');
     //Need to destroy the session on the server
+  }
+
+  void destroyAllSessions() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('LoginToken');
+    //Need to destroy all sessions on the server
   }
 }
