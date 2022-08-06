@@ -1,4 +1,3 @@
-import 'package:chastilock/api/mutations/login.dart';
 import 'package:chastilock/state/session_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:chastilock/router.gr.dart';
