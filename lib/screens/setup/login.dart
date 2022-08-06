@@ -1,8 +1,10 @@
+import 'package:chastilock/api/queries/login.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 import 'package:chastilock/router.gr.dart';
 import 'package:chastilock/state/session_manager.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -39,8 +41,8 @@ class LoginPageState extends State<LoginPage> {
 
     final router = AutoRouter.of(context);
     String? username;
-    String? password;
-
+    String? password;    
+    
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the LoginPage object that was created by
@@ -88,20 +90,24 @@ class LoginPageState extends State<LoginPage> {
                       })),
               Padding(
                   padding: const EdgeInsets.all(10),
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState?.save();
-                          clearPassword();
-                          // try {
+                  child: Mutation(options: MutationOptions(
+                    document: gql(loginQuery),
+                    onCompleted: (dynamic resultData) {
+                      print('ResultData is $resultData');
+                    },
+                    ),
+                    builder: (
+                      RunMutation runMutation,
+                      QueryResult? result,
+                      ) {
+                        return ElevatedButton(
+                          onPressed: () => runMutation({
+                            'username': username,
+                            'password': password
+                          }),
+                          child: const Text('Login'));
+                      })),
 
-                          SessionManager()
-                              .setSessionID('thisisaverysecuretoken');
-                          router.popUntilRoot();
-                          router.replace(const HomeRoute());
-                        }
-                      },
-                      child: const Text('Login'))),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
