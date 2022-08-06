@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:chastilock/router.gr.dart';
 import 'package:simple_speed_dial/simple_speed_dial.dart';
+
+import 'package:chastilock/router.gr.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

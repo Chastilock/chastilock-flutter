@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'firebase_options.dart';
-import 'router.gr.dart';
-import 'themes.dart';
+import 'package:chastilock/firebase_options.dart';
+import 'package:chastilock/router.gr.dart';
+import 'package:chastilock/themes.dart';
+import 'package:chastilock/api/client.dart';
 
 late SharedPreferences _prefs;
 
@@ -47,14 +49,18 @@ class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(isLoggedIn());
-    return MaterialApp.router(
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp.router(
         theme: Themes.lightTheme,
         darkTheme: Themes.darkTheme,
         themeMode: ThemeMode.system,
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(initialRoutes: [
           isLoggedIn() ? const HomeRoute() : const SetupRoute()
-        ]));
+        ]))
+    );
+    
+    
   }
 }

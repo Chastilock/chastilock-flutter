@@ -3,11 +3,10 @@ import 'package:chastilock/screens/loadlock.dart';
 import 'package:chastilock/screens/loadlockcamera.dart';
 import 'package:chastilock/screens/loadlockfromid.dart';
 import 'package:chastilock/screens/settings.dart';
-
-import 'screens/home.dart';
-import 'screens/setup/setup.dart';
-import 'screens/setup/login.dart';
-import 'screens/setup/forgottenpassword.dart';
+import 'package:chastilock/screens/home.dart';
+import 'package:chastilock/screens/setup/setup.dart';
+import 'package:chastilock/screens/setup/login.dart';
+import 'package:chastilock/screens/setup/forgottenpassword.dart';
 
 //TODO: Deeplinking to paramenter route not working.
 //TODO: implement Apple deep linking

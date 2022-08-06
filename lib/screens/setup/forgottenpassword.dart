@@ -1,5 +1,6 @@
-import 'package:chastilock/helpers/email_helpers.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chastilock/helpers/email_helpers.dart';
 
 class ForgottenPage extends StatefulWidget {
   const ForgottenPage({Key? key}) : super(key: key);
