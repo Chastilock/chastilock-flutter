@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:chastilock/state/session_manager.dart';
+import 'package:chastilock/api/custom_auth_link.dart';
 
 String endpoint = dotenv.get('API_BASE_URL');
-String apiKey = dotenv.get('API_KEY');
-String apiSecret = dotenv.get('API_SECRET');
 
 final HttpLink httpLink = HttpLink(endpoint);
 
-final AuthLink authLink = AuthLink(
-  getToken: () async => 'Bearer ${await SessionManager().getSessionID()}'
-);
+final CustomAuthLink myCustomAuthLink = CustomAuthLink(); 
 
-final Link link = authLink.concat(httpLink);
+final Link link = myCustomAuthLink.concat(httpLink);
 
 ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(

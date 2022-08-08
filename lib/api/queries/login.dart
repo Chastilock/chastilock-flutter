@@ -1,7 +1,7 @@
-String loginQuery = '''
-  mutation Login(\$Username: String!, \$Password: String!) {
-    login(input: {Username: \$Username, Password: \$Password}) {
+String loginQuery = """
+  mutation login(\$Username: String!, \$Password: String!) {
+    login(Username: \$Username, Password: \$Password) {
       Token
     }
   }
-''';
+""";

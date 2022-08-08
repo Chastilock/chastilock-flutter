@@ -101,13 +101,14 @@ class LoginPageState extends State<LoginPage> {
                       QueryResult? result,
                       ) {
                         return ElevatedButton(
-                          onPressed: () => runMutation({
-                            'username': username,
-                            'password': password
-                          }),
+                          onPressed: () => {
+                            if(_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save(),
+                              runMutation({'Username': username, 'Password': password})
+                            }
+                            },
                           child: const Text('Login'));
                       })),
-
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
