@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chastilock/api/queries/login.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -93,7 +95,15 @@ class LoginPageState extends State<LoginPage> {
                   child: Mutation(options: MutationOptions(
                     document: gql(loginQuery),
                     onCompleted: (dynamic resultData) {
-                      print('ResultData is $resultData');
+                      if(resultData != null) {
+                        String token = resultData['login']['Token'];
+                        SessionManager().setSessionID(token);
+                        router.popUntilRoot();
+                        router.push(const HomeRoute());
+                      }
+                    },
+                    onError: (error) => {
+                      print('Error!! $error')
                     },
                     ),
                     builder: (
