@@ -39,7 +39,10 @@ class ForgottenPageState extends State<ForgottenPage> {
         ),
         body: (Form(
             key: _formKey,
-            child: ListView(padding: const EdgeInsets.all(10), children: [
+            child: ListView(padding: const EdgeInsets.all(5), children: [
+              const Text(
+                  'If you have forgetten your password and have given us your email address, please provide it below and we can email you a link to reset it 🙂',
+                  style: TextStyle(fontSize: 16)),
               Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
@@ -55,9 +58,8 @@ class ForgottenPageState extends State<ForgottenPage> {
                           return 'Please enter a email address';
                         }
                         if (EmailHelpers.isEmailValid(value) == false) {
-                          return 'Please check that email address';
+                          return 'Please check that email address is valid';
                         }
-
                         return null;
                       })),
               Padding(
@@ -66,17 +68,6 @@ class ForgottenPageState extends State<ForgottenPage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
-                        try {
-                          // await forgettonPasssword(email!, context);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    'We have sent an email to your email address with further instructions.')),
-                          );
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print('Failed to send forgotten password email');
-                        }
                       }
                     },
                     child: const Text('Submit')),

@@ -34,13 +34,11 @@ class SetupPage extends StatelessWidget {
           const Text(
               'Happy to have you on board! If you want, you can either sign in, sign up or continue directly into the app! (You can still connect to an account later).',
               style: TextStyle(fontSize: 16)),
-
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {},
                   child: const Text('Register a new account'))),
-
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
@@ -58,7 +56,6 @@ class SetupPage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {},
                   child: const Text('Recover using the user id'))),
-          //Text(dotenv.get('API_BASE_URL', fallback: 'Not Working')),
         ])));
   }
 }
