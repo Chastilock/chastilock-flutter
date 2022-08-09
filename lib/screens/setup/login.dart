@@ -1,12 +1,10 @@
-import 'dart:convert';
-
-import 'package:chastilock/api/queries/login.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 import 'package:chastilock/router.gr.dart';
 import 'package:chastilock/state/session_manager.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:chastilock/api/queries/login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,10 +26,9 @@ class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
 
-  void clearPassword() {
-    passwordController.clear();
-  }
+  final usernameFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +40,8 @@ class LoginPageState extends State<LoginPage> {
 
     final router = AutoRouter.of(context);
     String? username;
-    String? password;    
-    
+    String? password;
+
     return Scaffold(
         appBar: AppBar(
           // Here we take the value from the LoginPage object that was created by
@@ -57,6 +54,9 @@ class LoginPageState extends State<LoginPage> {
               Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
+                      autofocus: true,
+                      focusNode: usernameFocusNode,
+                      controller: usernameController,
                       onSaved: (String? value) {
                         username = value;
                       },
@@ -92,32 +92,69 @@ class LoginPageState extends State<LoginPage> {
                       })),
               Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Mutation(options: MutationOptions(
-                    document: gql(loginQuery),
-                    onCompleted: (dynamic resultData) {
-                      if(resultData != null) {
-                        String token = resultData['login']['Token'];
-                        SessionManager().setSessionID(token);
-                        router.popUntilRoot();
-                        router.push(const HomeRoute());
-                      }
-                    },
-                    onError: (error) => {
-                      print('Error!! $error')
-                    },
-                    ),
-                    builder: (
-                      RunMutation runMutation,
-                      QueryResult? result,
+                  child: Mutation(
+                      options: MutationOptions(
+                        document: gql(loginQuery),
+                        onCompleted: (dynamic resultData) {
+                          if (resultData != null) {
+                            String token = resultData['login']['Token'];
+                            SessionManager().setSessionID(token);
+                            router.popUntilRoot();
+                            router.push(const HomeRoute());
+                          }
+                        },
+                        onError: (error) => showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Error'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                    children: error!.graphqlErrors
+                                        .map((singleError) =>
+                                            Text(singleError.message))
+                                        .toList()),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    passwordController.clear();
+                                    usernameController.clear();
+                                    usernameFocusNode.requestFocus();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      builder: (
+                        RunMutation runMutation,
+                        QueryResult? result,
                       ) {
+                        if (result!.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          );
+                        }
+
                         return ElevatedButton(
-                          onPressed: () => {
-                            if(_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save(),
-                              runMutation({'Username': username, 'Password': password})
-                            }
-                            },
-                          child: const Text('Login'));
+                            onPressed: () => {
+                                  if (_formKey.currentState!.validate())
+                                    {
+                                      _formKey.currentState!.save(),
+                                      runMutation({
+                                        'Username': username,
+                                        'Password': password
+                                      })
+                                    }
+                                },
+                            child: const Text('Login'));
                       })),
               Padding(
                 padding: const EdgeInsets.all(10),
