@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:auto_route/auto_route.dart';
 
 import 'package:chastilock/helpers/email_helpers.dart';
+import 'package:chastilock/api/queries/forgottenpassword.dart';
 
 class ForgottenPage extends StatefulWidget {
   const ForgottenPage({Key? key}) : super(key: key);
@@ -29,6 +32,7 @@ class ForgottenPageState extends State<ForgottenPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
+    final router = AutoRouter.of(context);
     String? email;
 
     return Scaffold(
@@ -63,15 +67,87 @@ class ForgottenPageState extends State<ForgottenPage> {
                         return null;
                       })),
               Padding(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState?.save();
-                      }
-                    },
-                    child: const Text('Submit')),
-              )
+                  padding: const EdgeInsets.all(10),
+                  child: Mutation(
+                      options: MutationOptions(
+                        document: gql(forgottenPasswordQuery),
+                        onCompleted: (dynamic resultData) {
+                          if (resultData != null) {
+                            if (resultData['requestPasswordChange']
+                                    ['PasswordReset_ID'] !=
+                                null) {
+                              showDialog<void>(
+                                context: context,
+                                barrierDismissible:
+                                    false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Error'),
+                                    content: const SingleChildScrollView(
+                                        child: Text(
+                                            'An email has been sent to your email address with a link. That link will expire in 1 hour.')),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text('OK'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          router.pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          }
+                        },
+                        onError: (error) => showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Error'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                    children: error!.graphqlErrors
+                                        .map((singleError) =>
+                                            Text(singleError.message))
+                                        .toList()),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      builder: (
+                        RunMutation runMutation,
+                        QueryResult? result,
+                      ) {
+                        if (result!.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          );
+                        }
+
+                        return ElevatedButton(
+                            onPressed: () => {
+                                  if (_formKey.currentState!.validate())
+                                    {
+                                      _formKey.currentState!.save(),
+                                      runMutation({'Email': email})
+                                    }
+                                },
+                            child: const Text('Submit'));
+                      })),
             ]))));
   }
 }
