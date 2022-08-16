@@ -6,7 +6,8 @@ import 'package:chastilock/screens/settings.dart';
 import 'package:chastilock/screens/home.dart';
 import 'package:chastilock/screens/setup/setup.dart';
 import 'package:chastilock/screens/setup/login.dart';
-import 'package:chastilock/screens/setup/forgottenpassword.dart';
+import 'package:chastilock/screens/setup/forgotten_password.dart';
+import 'package:chastilock/screens/setup/anon_account.dart';
 
 //TODO: Deeplinking to paramenter route not working.
 //TODO: implement Apple deep linking
@@ -20,7 +21,9 @@ import 'package:chastilock/screens/setup/forgottenpassword.dart';
     AutoRoute(page: SettingsPage, path: '/settings'),
     AutoRoute(page: LoadLockPage, path: '/loadlock'),
     AutoRoute(page: LoadLockCameraPage, path: '/loadlock/camera'),
-    AutoRoute(page: LoadLockFromIDPage, path: '/loadlock/:lockId')
+    AutoRoute(page: LoadLockFromIDPage, path: '/loadlock/:lockId'),
+    AutoRoute(page: CreateAnonPage, path: '/createanon')
+
   ],
 )
 class $AppRouter {}

@@ -42,7 +42,9 @@ class SetupPage extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    router.push(const CreateAnonRoute());
+                  },
                   child: const Text('Take me directly to the app'))),
           Padding(
               padding: const EdgeInsets.all(5),
