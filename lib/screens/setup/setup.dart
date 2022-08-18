@@ -56,7 +56,9 @@ class SetupPage extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    router.push(const LoginAnonRoute());
+                  },
                   child: const Text('Recover using the user id'))),
         ])));
   }
