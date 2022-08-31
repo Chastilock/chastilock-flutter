@@ -139,10 +139,8 @@ class CreateAnonPageState extends State<CreateAnonPage> {
                       if (resultData != null) {
                         String token = resultData['loginAnon']['Token'];
                         SessionManager().setSessionID(token);
-                        router.popUntilRoot();
+                        router.popUntil((route) => false);
                         router.push(const HomeRoute());
-
-                        //TODO: Login here!
                       }
                     },
                     onError: (error) => showDialog<void>(

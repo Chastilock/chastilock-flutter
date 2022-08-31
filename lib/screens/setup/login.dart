@@ -99,7 +99,7 @@ class LoginPageState extends State<LoginPage> {
                           if (resultData != null) {
                             String token = resultData['login']['Token'];
                             SessionManager().setSessionID(token);
-                            router.popUntilRoot();
+                            router.popUntil((route) => false);
                             router.push(const HomeRoute());
                           }
                         },
